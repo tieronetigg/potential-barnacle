@@ -1,0 +1,99 @@
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "middleName": "Michael",
+  "ssn": "123-45-6789",
+  "dateOfBirth": "01/15/1980",
+  "address": "123 Main Street",
+  "city": "Springfield",
+  "state": "MO",
+  "zipCode": "65801",
+  "phoneNumber": "555-123-4567",
+  
+  "N5text[0]": "I have chronic lower back pain and severe depression that significantly affects my daily activities. The back pain is constant, rating 7-8 out of 10, and worsens with any physical activity including sitting, standing, or walking for more than short periods. The depression causes extreme fatigue, difficulty concentrating, and lack of motivation to complete basic tasks.",
+  
+  "N6text[0]": "I wake up around 7am feeling exhausted and in severe pain. I take my morning medications and usually need to rest for 30-60 minutes before attempting any activities. Throughout the day I must rest frequently, typically every 30-45 minutes, due to increasing pain and fatigue. I go to bed early around 8-9pm.",
+  
+  "N7text[0]": "I need help with most household tasks",
+  
+  "N9IfYesField[0]": "I have a service dog for emotional support",
+  
+  "N10Field[0]": "I used to work full-time and maintain my home independently",
+  
+  "N11IfYesField[0]": "I have difficulty sleeping due to pain and anxiety",
+  
+  "N12Dress[0]": "Difficult - need help with socks and shoes",
+  "N12Bathe[0]": "Must sit while bathing, need grab bars",
+  "N12CareForHair[0]": "Can manage with frequent breaks",
+  "N12Save[0]": "Difficult due to arm/shoulder pain",
+  "N12FeedSelf[0]": "Can feed myself but tire easily",
+  "N12UseTheToilet[0]": "Need grab bars for assistance",
+  "N12Other[0]": "All personal care is slower and more difficult",
+  "N12BIfYesField[0]": "Family helps with bathing setup and dressing lower body",
+  "N12CIfYesField[0]": "Personal care abilities have significantly declined over past 2 years due to worsening pain and depression",
+  
+  "N13AIfYesField[0]": "I can prepare simple meals like sandwiches or microwave dinners but need frequent breaks",
+  "N13AHowOftenField[0]": "2-3 times per week",
+  "N13AHowLong[0]": "Takes much longer than before",
+  "N13AAnyChngsField[0]": "Used to cook elaborate meals daily",
+  "N13BIfNoField[0]": "Family prepares most meals because standing and focusing is too difficult and painful",
+  
+  "N14AField[0]": "Light dusting occasionally, cannot vacuum or do heavy cleaning",
+  "N14BField[0]": "Much longer with many breaks",
+  "N14CIfYesField[0]": "Family encourages me to do what I can",
+  "N14dField[0]": "Pain and fatigue make housework extremely difficult and exhausting",
+  
+  "N15A[0]": "Only for medical appointments with assistance",
+  "N15AIfField[0]": "Stopped driving due to medication side effects and concentration problems",
+  "N15BOtherField[0]": "Walk very short distances with frequent stops",
+  "N15CIfNoField[0]": "No public transportation available in rural area",
+  "N15DIfYouDontDrive[0]": "Family provides transportation for essential appointments only",
+  
+  "N16B[0]": "Online shopping when possible",
+  "N16C[0]": "Cannot walk through stores or carry items",
+  
+  "N17AExplain[0]": "Can handle simple transactions but have difficulty with complex financial tasks due to concentration problems",
+  "N17BIfYes[0]": "Used to manage all household finances independently. Now need help with bills, banking, and financial planning due to cognitive difficulties from depression and medication side effects",
+  
+  "N18A[0]": "Used to enjoy gardening, reading, and woodworking. Now limited to occasional reading and watching TV due to pain and lack of energy",
+  "N18B[0]": "Reading maybe 2-3 times per week for short periods",
+  "N18C[0]": "Significant decrease in all hobby activities due to physical and mental limitations",
+  
+  "N19A[0]": "Rarely socialize anymore",
+  "N19B[0]": "Occasional family visits only",
+  "N19BHowOften[0]": "Someone usually accompanies me due to anxiety and physical limitations",
+  "N19CIfYes[0]": "Anxiety in social situations, difficulty standing or sitting for extended periods",
+  "N19D[0]": "Social activities have dramatically decreased. Used to be very social and active in community",
+  
+  "N20A[0]": "Cannot lift more than 5-10 pounds. Walking limited to one block with stops. Standing limited to 10-15 minutes. Sitting becomes painful after 30 minutes. Cannot bend, stoop, or climb stairs without severe pain",
+  "N20C[0]": "One block before needing to rest",
+  "N20CIfYou[0]": "Need to rest for 10-15 minutes before continuing",
+  "N20D[0]": "Depression causes memory problems, difficulty concentrating, and poor decision making",
+  "N20F[0]": "Can follow simple instructions but complex ones are difficult",
+  "N20G[0]": "Better with written instructions due to concentration issues",
+  "N20H[0]": "Anxiety makes interactions with authority figures stressful",
+  
+  "N20IIfYesExplain[0]": "No, I have not been fired for problems getting along with others. However, I did have increasing conflicts with coworkers in my last job due to irritability from chronic pain and depression, which contributed to my decision to stop working",
+  "N20IIfYesEmployer[0]": "ABC Company",
+  "N20J[0]": "Very poorly - stress worsens all symptoms",
+  "N20K[0]": "Changes in routine cause significant anxiety and confusion",
+  "N20LIfYes[0]": "Depression sometimes causes episodes of crying, social withdrawal, and feelings of hopelessness. During bad pain days, I may appear irritable or have difficulty communicating clearly. I sometimes forget conversations or important tasks due to concentration problems. Sleep disturbances cause mood swings and increased sensitivity to noise and activity around me",
+  
+  "N21IfOther[0]": "Back brace for support",
+  "N21Which[0]": "Prescribed back brace and cane by orthopedic specialist",
+  "N21WhenPrescribed[0]": "Back brace in 2022, cane in 2023",
+  "N21WhenDoYou[0]": "I use the back brace daily when attempting any physical activity, including getting dressed, walking, or doing light household tasks. The cane is used whenever I need to walk more than a few steps, especially outdoors or on uneven surfaces. Both are essential for basic mobility and pain management",
+  
+  "N22Med1[0]": "Gabapentin 300mg",
+  "N22Effects1[0]": "Drowsiness and dizziness",
+  "N22Med2[0]": "Sertraline 100mg",
+  "N22Effects2[0]": "Nausea and weight gain",
+  "N22Med3[0]": "Tramadol 50mg",
+  "N22Effects3[0]": "Constipation and fatigue",
+  "N22Med4[0]": "Trazodone 50mg",
+  "N22Effects4[0]": "Morning grogginess",
+  "N22Med5[0]": "Ibuprofen 800mg",
+  "N22Effects5[0]": "Stomach irritation",
+  
+  "Remarks[0]": "Additional information: I have been under continuous medical care since 2019 for chronic lower back pain and major depressive disorder. Multiple specialists have been consulted including orthopedic spine specialist, pain management physician, psychiatrist, and primary care physician. Treatment history includes physical therapy (discontinued due to increased pain), epidural steroid injections (temporary relief only), multiple medication trials, and ongoing psychiatric care. MRI shows disc degeneration at L4-L5 and L5-S1. Mental health symptoms have worsened significantly since onset of chronic pain. Previous employment as office manager required sitting for extended periods which became impossible. Applied for disability in 2023 after exhausting all treatment options and inability to maintain employment. Family provides significant daily assistance with activities of daily living."
+}
