@@ -29,24 +29,42 @@ class FormRequest(BaseModel):
     line_limits: Optional[Dict[str, int]] = None
     template_name: Optional[str] = "ssa-3373-formatted-blank.pdf"
 
+class GPTFormRequest(BaseModel):
+    template_name: Optional[str] = "ssa-3373-formatted-blank.pdf"
+    fields: Dict[str, str]
+    
+    class Config:
+        schema_extra = {
+            "example": {
+                "template_name": "ssa-3373-formatted-blank.pdf",
+                "fields": {
+                    "Name[0]": "Sarah Johnson",
+                    "SSN[0]": "456-78-9012",
+                    "Address[0]": "1245 Maple Street",
+                    "City[0]": "Springfield", 
+                    "State[0]": "MO",
+                    "ZIP[0]": "65807",
+                    "Date[0]": "June 18, 2025"
+                }
+            }
+        }
+
 @app.post("/fill-ssa-form-gpt")
-async def fill_ssa_form_gpt(request_data: dict):
+async def fill_ssa_form_gpt(request: GPTFormRequest):
     """
     GPT Actions compatible endpoint - returns PDF as downloadable data URL
     """
     try:
         print("=== GPT ENDPOINT CALLED ===")
-        print(f"Request data: {list(request_data.keys())}")
+        print(f"Template: {request.template_name}")
+        print(f"Fields count: {len(request.fields)}")
         
-        # Validate required fields
-        template_name = request_data.get('template_name', 'ssa-3373-formatted-blank.pdf')
-        fields = request_data.get('fields', {})
-        
-        if not fields or len(fields) == 0:
+        # Validate fields
+        if not request.fields or len(request.fields) == 0:
             return {"error": "Missing or empty fields", "status": "error"}, 400
         
-        # Generate PDF using your existing PDFFormFiller logic
-        pdf_content = await generate_pdf_for_gpt(template_name, fields)
+        # Generate PDF using existing logic
+        pdf_content = await generate_pdf_for_gpt(request.template_name, request.fields)
         
         # Validate PDF was generated
         if not pdf_content or len(pdf_content) < 1000:
