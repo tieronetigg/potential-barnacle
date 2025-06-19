@@ -8,7 +8,7 @@ import json
 import os
 import base64
 from datetime import datetime
-from fill_pdf_form import PDFFormFill
+from fill_pdf_form import PDFFormFiller
 
 app = FastAPI(
     title="SSA-3373 PDF Form Filler",
