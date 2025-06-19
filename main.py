@@ -75,7 +75,14 @@ async def fill_ssa_form(request: FormRequest):
                 content=pdf_content,
                 media_type='application/pdf',
                 headers={
-                    "Content-Disposition": "attachment; filename=filled_ssa-3373.pdf"
+                    "Content-Disposition": "attachment; filename=filled_ssa-3373.pdf",
+                    "Content-Type": "application/pdf",  # Explicit Content-Type
+                    "Content-Length": str(len(pdf_content)),  # Critical for GPT Actions
+                    "Cache-Control": "no-cache, no-store, must-revalidate",
+                    "Pragma": "no-cache",
+                    "Expires": "0",
+                    "Access-Control-Expose-Headers": "Content-Disposition, Content-Length",  # Key for CORS
+                    "Accept-Ranges": "bytes"  # Helps with large file downloads
                 }
             )
             
