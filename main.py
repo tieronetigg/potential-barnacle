@@ -6,7 +6,9 @@ from typing import Dict, Any, Optional
 import tempfile
 import json
 import os
-from fill_pdf_form import PDFFormFiller
+import base64
+from datetime import datetime
+from fill_pdf_form import PDFFormFil
 
 app = FastAPI(
     title="SSA-3373 PDF Form Filler",
@@ -26,6 +28,69 @@ class FormRequest(BaseModel):
     fields: Dict[str, Any]
     line_limits: Optional[Dict[str, int]] = None
     template_name: Optional[str] = "ssa-3373-formatted-blank.pdf"
+
+@app.post("/fill-ssa-form-gpt")
+async def fill_ssa_form_gpt(request_data: dict):
+    """
+    GPT Actions compatible endpoint - returns PDF as downloadable data URL
+    """
+    try:
+        print("=== GPT ENDPOINT CALLED ===")
+        print(f"Request data: {list(request_data.keys())}")
+        
+        # Validate required fields
+        template_name = request_data.get('template_name', 'ssa-3373-formatted-blank.pdf')
+        fields = request_data.get('fields', {})
+        
+        if not fields or len(fields) == 0:
+            return {"error": "Missing or empty fields", "status": "error"}, 400
+        
+        # Generate PDF using your existing PDFFormFiller logic
+        pdf_content = await generate_pdf_for_gpt(template_name, fields)
+        
+        # Validate PDF was generated
+        if not pdf_content or len(pdf_content) < 1000:
+            return {"error": "PDF generation failed - no content", "status": "error"}, 500
+            
+        if not pdf_content.startswith(b'%PDF'):
+            return {"error": "Invalid PDF format", "status": "error"}, 500
+        
+        # Create unique filename
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"ssa-3373-filled_{timestamp}.pdf"
+        
+        # Convert to base64 for GPT Actions
+        pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
+        
+        # Create data URL for immediate download
+        data_url = f"data:application/pdf;base64,{pdf_base64}"
+        
+        print(f"=== PDF PROCESSED ===")
+        print(f"PDF size: {len(pdf_content)} bytes")
+        print(f"Base64 size: {len(pdf_base64)} characters")
+        print(f"Filename: {filename}")
+        
+        return {
+            "status": "success",
+            "message": "PDF generated successfully and ready for download",
+            "filename": filename,
+            "download_url": data_url,
+            "pdf_size_kb": round(len(pdf_content) / 1024, 1),
+            "download_ready": True
+        }
+        
+    except Exception as e:
+        print(f"=== ERROR IN GPT ENDPOINT ===")
+        print(f"Error: {e}")
+        import traceback
+        traceback.print_exc()
+        
+        return {
+            "status": "error",
+            "error": str(e),
+            "message": "Failed to generate PDF"
+        }, 500
+
 
 @app.post("/fill-ssa-form")
 async def fill_ssa_form(request: FormRequest):
@@ -199,6 +264,53 @@ def get_available_templates():
         return [f for f in os.listdir(template_dir) if f.endswith('.pdf')]
     return []
 
+async def generate_pdf_for_gpt(template_name: str, fields: dict) -> bytes:
+    """
+    Generate PDF using existing PDFFormFiller logic - for GPT endpoint
+    """
+    try:
+        # Get template path
+        template_path = os.path.join("templates", template_name)
+        if not os.path.exists(template_path):
+            raise Exception(f"Template {template_name} not found. Available: {get_available_templates()}")
+        
+        # Create temporary files
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as json_temp:
+            json.dump(fields, json_temp, indent=2)
+            json_temp_path = json_temp.name
+        
+        with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as output_temp:
+            output_temp_path = output_temp.name
+        
+        try:
+            # Fill the form using your existing PDFFormFiller logic
+            with PDFFormFiller(template_path, json_temp_path, output_temp_path) as filler:
+                
+                # Apply default line limits
+                line_limits = get_default_line_limits()
+                filler.set_multiple_field_limits(line_limits)
+                
+                # Fill and save the form
+                filler.fill_form()
+                filler.save()
+            
+            # Read the filled PDF
+            with open(output_temp_path, 'rb') as pdf_file:
+                pdf_content = pdf_file.read()
+                
+            return pdf_content
+            
+        finally:
+            # Cleanup temporary files
+            if os.path.exists(json_temp_path):
+                os.unlink(json_temp_path)
+            if os.path.exists(output_temp_path):
+                os.unlink(output_temp_path)
+                
+    except Exception as e:
+        print(f"PDF generation error: {e}")
+        raise Exception(f"PDF generation failed: {str(e)}")
+
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
@@ -219,12 +331,13 @@ async def get_form_info():
         "default_line_limits_count": len(get_default_line_limits()),
         "api_endpoints": {
             "fill_form": "/fill-ssa-form",
+            "fill_form_gpt": "/fill-ssa-form-gpt",
             "health": "/health",
             "form_info": "/form-info",
             "docs": "/docs"
         },
         "template_directory": "templates/",
-        "supported_methods": ["POST /fill-ssa-form"]
+        "supported_methods": ["POST /fill-ssa-form", "POST /fill-ssa-form-gpt"]
     }
 
 @app.get("/line-limits")
